@@ -1,77 +1,41 @@
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ui.MainActivity"
+    >
 
-  <com.google.android.material.textfield.TextInputLayout
-      android:id="@+id/term_input_layout"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginEnd="8dp"
-      android:layout_marginStart="8dp"
-      android:layout_marginTop="8dp"
-      android:layout_marginLeft="8dp"
-      android:layout_marginRight="8dp"
-      style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent">
-
-    <EditText
-        android:id="@+id/search_term"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/hint"
-        android:imeOptions="actionSearch"
-        android:inputType="textNoSuggestions"
-        android:selectAllOnFocus="true"
-        tools:text="Rick and Morty"/>
-  </com.google.android.material.textfield.TextInputLayout>
-
-  <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/list"
-      android:layout_width="0dp"
-      android:layout_height="0dp"
-      android:scrollbars="vertical"
-      app:layoutManager="LinearLayoutManager"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/term_input_layout"/>
-
-  <ProgressBar
-      android:id="@+id/progress_bar"
-      style="?android:attr/progressBarStyle"
+  <com.google.android.material.appbar.AppBarLayout
+      android:id="@+id/appbar"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_gravity="center"
-      app:layout_constraintLeft_toLeftOf="parent"
-      app:layout_constraintRight_toRightOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintBottom_toBottomOf="parent"/>
+      android:theme="@style/Theme.Kumu.AppBarOverlay"
+      >
 
-  <Button
-      android:id="@+id/retry_button"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/retry"
-      app:layout_constraintLeft_toLeftOf="parent"
-      app:layout_constraintRight_toRightOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintBottom_toBottomOf="parent"/>
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:popupTheme="@style/Theme.Kumu.PopupOverlay"
+        />
 
-  <TextView android:id="@+id/emptyList"
-      android:layout_width="0dp"
+  </com.google.android.material.appbar.AppBarLayout>
+
+  <fragment
+      android:id="@+id/nav_host_fragment"
+      android:name="androidx.navigation.fragment.NavHostFragment"
+      android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:gravity="center"
-      android:text="@string/empty"
-      android:textAppearance="?textAppearanceSearchResultTitle"
-      android:visibility="gone"
+      app:defaultNavHost="true"
+      app:layout_behavior="@string/appbar_scrolling_view_behavior"
       app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"/>
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/appbar"
+      app:navGraph="@navigation/nav_graph"
+      />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

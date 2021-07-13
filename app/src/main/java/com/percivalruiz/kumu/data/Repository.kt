@@ -1,7 +1,9 @@
 package com.percivalruiz.kumu.data
 
+import kotlinx.coroutines.flow.Flow
+
 interface Repository {
 
-  suspend fun getItems()
+  suspend fun search(term: String): Flow<List<Results>>
 
 }

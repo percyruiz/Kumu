@@ -2,9 +2,13 @@ package com.percivalruiz.kumu.ui
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import com.percivalruiz.kumu.data.Repository
+import com.percivalruiz.kumu.data.Results
+import kotlinx.coroutines.flow.Flow
 
 class SearchViewModel(
-  private val handle: SavedStateHandle
+  private val handle: SavedStateHandle,
+  private val repository: Repository
 ): ViewModel() {
 
   init {
@@ -13,8 +17,8 @@ class SearchViewModel(
     }
   }
 
-  fun search(term: String) {
-
+  suspend fun search(term: String): Flow<List<Results>> {
+    return repository.search(term)
   }
 
   companion object {
