@@ -1,10 +1,15 @@
 package com.percivalruiz.kumu.di
 
 import android.util.Log
+import com.percivalruiz.kumu.api.ITunesService
+import com.percivalruiz.kumu.data.Repository
+import com.percivalruiz.kumu.data.RepositoryImpl
+import com.percivalruiz.kumu.ui.SearchViewModel
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -28,12 +33,25 @@ val appModule = module {
       .build()
   }
 
-  single {
-    Retrofit.Builder()
+  single<ITunesService> {
+    val retrofit = Retrofit.Builder()
       .baseUrl("https://itunes.apple.com/")
       .client(get())
       .addConverterFactory(MoshiConverterFactory.create(get()))
       .build()
+    retrofit.create(ITunesService::class.java)
   }
 
+  single<Repository> {
+    RepositoryImpl(
+      service = get()
+    )
+  }
+
+  viewModel {
+    SearchViewModel(
+      handle = get(),
+      repository = get()
+    )
+  }
 }
