@@ -2,5 +2,5 @@
   <string name="app_name">Kumu</string>
   <string name="retry">Retry</string>
   <string name="empty">No items found :(</string>
-  <string name="hint">Search term</string>
+  <string name="hint">Search</string>
 </resources>
