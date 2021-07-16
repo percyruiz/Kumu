@@ -4,18 +4,21 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.percivalruiz.kumu.repository.Repository
 import com.percivalruiz.kumu.data.ITunesItem
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.map
 
-class SearchViewModel(
+class ITunesListViewModel(
   private val handle: SavedStateHandle,
   private val repository: Repository
-): ViewModel() {
+) : ViewModel() {
 
   init {
     if (!handle.contains(KEY_TERM)) {
@@ -29,9 +32,6 @@ class SearchViewModel(
     .flatMapLatest { repository.search(it) }
     .cachedIn(viewModelScope)
 
-//  suspend fun search(term: String): Flow<List<ITunesItem>> {
-//    return repository.search(term)
-//  }
 
   fun search(term: String) {
     handle.set(KEY_TERM, term)

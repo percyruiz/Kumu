@@ -3,6 +3,7 @@ package com.percivalruiz.kumu.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
@@ -17,7 +18,6 @@ import org.koin.androidx.viewmodel.ext.android.stateViewModel
 
 class MainActivity : AppCompatActivity() {
 
-  private val viewModel: SearchViewModel by stateViewModel()
   private lateinit var binding: ActivityMainBinding
   private lateinit var appBarConfig: AppBarConfiguration
 
@@ -41,12 +41,6 @@ class MainActivity : AppCompatActivity() {
 
     setSupportActionBar(binding.toolbar)
     supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-    lifecycleScope.launch {
-      viewModel.search("rick and morty").collectLatest {
-        Log.d("test", it[0].trackName)
-      }
-    }
   }
 
   override fun onSupportNavigateUp(): Boolean {
