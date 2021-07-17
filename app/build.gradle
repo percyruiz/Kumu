@@ -96,4 +96,7 @@ dependencies {
 
   // Card View
   implementation 'androidx.cardview:cardview:1.0.0'
+
+  // Pretty Time
+  implementation 'org.ocpsoft.prettytime:prettytime:4.0.4.Final'
 }

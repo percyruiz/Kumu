@@ -5,16 +5,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
-import com.percivalruiz.kumu.repository.Repository
-import com.percivalruiz.kumu.data.ITunesItem
+import com.percivalruiz.kumu.repository.ITunesRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
 
 class SearchViewModel(
   private val handle: SavedStateHandle,
-  private val repository: Repository
+  private val repository: ITunesRepository
 ): ViewModel() {
 
   init {

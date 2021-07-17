@@ -4,9 +4,11 @@ import android.util.Log
 import androidx.room.Room
 import com.bumptech.glide.Glide
 import com.percivalruiz.kumu.api.ITunesService
-import com.percivalruiz.kumu.repository.Repository
-import com.percivalruiz.kumu.repository.RepositoryImpl
+import com.percivalruiz.kumu.repository.ITunesRepository
+import com.percivalruiz.kumu.repository.ITunesRepositoryImpl
 import com.percivalruiz.kumu.db.AppDatabase
+import com.percivalruiz.kumu.repository.UserStatusRepository
+import com.percivalruiz.kumu.repository.UserStatusRepositoryImpl
 import com.percivalruiz.kumu.ui.ITunesListViewModel
 import com.percivalruiz.kumu.ui.SearchViewModel
 import com.squareup.moshi.Moshi
@@ -55,9 +57,15 @@ val appModule = module {
     ).build()
   }
 
-  single<Repository> {
-    RepositoryImpl(
+  single<ITunesRepository> {
+    ITunesRepositoryImpl(
       service = get(),
+      db = get()
+    )
+  }
+
+  single<UserStatusRepository> {
+    UserStatusRepositoryImpl(
       db = get()
     )
   }
@@ -72,7 +80,8 @@ val appModule = module {
   viewModel {
     ITunesListViewModel(
       handle = get(),
-      repository = get()
+      iTunesRepository = get(),
+      userStatusRepository = get()
     )
   }
 

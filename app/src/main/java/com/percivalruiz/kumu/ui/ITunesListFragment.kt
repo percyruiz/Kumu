@@ -15,11 +15,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.RequestManager
+import com.percivalruiz.kumu.R
 import com.percivalruiz.kumu.databinding.FragmentItunesListBinding
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.stateViewModel
+import org.ocpsoft.prettytime.PrettyTime
+import java.util.*
 
 class ITunesListFragment : Fragment() {
 
@@ -46,6 +49,32 @@ class ITunesListFragment : Fragment() {
       findNavController().navigate(ITunesListFragmentDirections.actionListToDetail())
     }
 
+    initAdapter()
+
+    binding.searchTerm.setOnEditorActionListener { v, actionId, event ->
+      if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+        viewModel.search(binding.searchTerm.text.toString())
+        hideKeyboard()
+        true
+      }
+      false
+    }
+
+    viewModel.status.observe(viewLifecycleOwner) {
+      viewModel.initStatus(status = it)
+      binding.searchTerm.setText(it?.lastSearch.orEmpty())
+      it?.lastVisit?.let { timestamp ->
+        binding.lastVisitLabel.text =
+          requireContext().resources.getString(R.string.last_visited, timestamp.getPrettyTime())
+      }
+    }
+  }
+
+  private fun Long.getPrettyTime(): String {
+    return PrettyTime().format(Date(this))
+  }
+
+  private fun initAdapter() {
     adapter = ITunesListAdapter(glide) { }
 
     binding.retryButton.setOnClickListener { adapter.retry() }
@@ -55,6 +84,7 @@ class ITunesListFragment : Fragment() {
       header = LoadingAdapter(adapter),
       footer = footerAdapter
     )
+
     val gridLayoutManager = GridLayoutManager(activity, 3)
     binding.list.layoutManager = gridLayoutManager
     gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
@@ -94,15 +124,6 @@ class ITunesListFragment : Fragment() {
         }
       }
     }
-
-    binding.searchTerm.setOnEditorActionListener { v, actionId, event ->
-      if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-        viewModel.search(binding.searchTerm.text.toString())
-        hideKeyboard()
-        true
-      }
-      false
-    }
   }
 
   private fun showEmptyList(show: Boolean) {
@@ -115,7 +136,7 @@ class ITunesListFragment : Fragment() {
     }
   }
 
-  fun hideKeyboard(): Boolean {
+  private fun hideKeyboard(): Boolean {
     return (requireContext().getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager)
       .hideSoftInputFromWindow(binding.searchTerm.windowToken, 0)
   }
