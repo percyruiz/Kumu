@@ -27,8 +27,18 @@
         android:imeOptions="actionSearch"
         android:inputType="textNoSuggestions"
         android:selectAllOnFocus="true"
-        tools:text="Rick and Morty"/>
+        tools:text="Loki"/>
   </com.google.android.material.textfield.TextInputLayout>
+
+  <TextView
+      android:id="@+id/last_visit_label"
+      android:layout_margin="4dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/term_input_layout"
+      android:layout_width="match_parent"
+      tools:text="Last Visit: 4 hours ago"
+      android:layout_height="wrap_content"/>
 
   <androidx.recyclerview.widget.RecyclerView
       android:id="@+id/list"
@@ -39,7 +49,7 @@
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/term_input_layout"/>
+      app:layout_constraintTop_toBottomOf="@+id/last_visit_label"/>
 
   <ProgressBar
       android:visibility="gone"
