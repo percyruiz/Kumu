@@ -9,8 +9,8 @@ import com.percivalruiz.kumu.repository.ITunesRepositoryImpl
 import com.percivalruiz.kumu.db.AppDatabase
 import com.percivalruiz.kumu.repository.UserStatusRepository
 import com.percivalruiz.kumu.repository.UserStatusRepositoryImpl
-import com.percivalruiz.kumu.ui.ITunesListViewModel
-import com.percivalruiz.kumu.ui.SearchViewModel
+import com.percivalruiz.kumu.ui.list.ITunesListViewModel
+import com.percivalruiz.kumu.ui.detail.ITunesDetailViewModel
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
@@ -71,7 +71,7 @@ val appModule = module {
   }
 
   viewModel {
-    SearchViewModel(
+    ITunesDetailViewModel(
       handle = get(),
       repository = get()
     )

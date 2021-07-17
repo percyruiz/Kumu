@@ -32,6 +32,6 @@ data class ITunesItem (
   val currency: String?,
 
   @ColumnInfo(name = "long_description")
-  @Json(name = "longDescription")
+  @Json(name = "description")
   val longDescription: String?
 )

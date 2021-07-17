@@ -1,4 +1,4 @@
-package com.percivalruiz.kumu.ui
+package com.percivalruiz.kumu.ui.list
 
 import android.view.LayoutInflater
 import android.view.View
@@ -15,22 +15,24 @@ import com.percivalruiz.kumu.data.ITunesItem
 
 class ITunesViewHolder(
   view: View,
-  onClick: () -> Unit,
+  onClick: (id: Long) -> Unit,
   private val glide: RequestManager
 ) : RecyclerView.ViewHolder(view) {
 
   private val trackImage: ImageView = view.findViewById(R.id.track_image)
   private val trackName: TextView = view.findViewById(R.id.track_name)
   private val trackPrice: TextView = view.findViewById(R.id.track_price)
+  private var item: ITunesItem? = null
 
   init {
     view.setOnClickListener {
-      onClick.invoke()
+      onClick.invoke(item?.id ?: 0)
     }
   }
 
   fun bind(item: ITunesItem?) {
     item?.apply {
+      this@ITunesViewHolder.item = this
       this@ITunesViewHolder.trackName.text = item.trackName
       this@ITunesViewHolder.trackPrice.text = if (item.trackPrice != null) {
         "${item.trackPrice} ${item.currency}"
@@ -48,7 +50,7 @@ class ITunesViewHolder(
   }
 
   companion object {
-    fun create(parent: ViewGroup, onClick: () -> Unit, glide: RequestManager): ITunesViewHolder {
+    fun create(parent: ViewGroup, onClick: (id: Long) -> Unit, glide: RequestManager): ITunesViewHolder {
       val view = LayoutInflater.from(parent.context).inflate(R.layout.itunes_item, parent, false)
       return ITunesViewHolder(view, onClick, glide)
     }

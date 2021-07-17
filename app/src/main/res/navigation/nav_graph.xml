@@ -7,7 +7,7 @@
 
   <fragment
       android:id="@+id/iTunesListFragment"
-      android:name="com.percivalruiz.kumu.ui.ITunesListFragment"
+      android:name="com.percivalruiz.kumu.ui.list.ITunesListFragment"
       tools:layout="@layout/fragment_itunes_list">
 
     <action
@@ -18,16 +18,13 @@
 
   <fragment
       android:id="@+id/iTunesDetailFragment"
-      android:name="com.percivalruiz.kumu.ui.ITunesDetailFragment"
+      android:name="com.percivalruiz.kumu.ui.detail.ITunesDetailFragment"
       android:label="Label"
       tools:layout="@layout/fragment_itunes_detail">
 
-<!--    <argument-->
-<!--        android:name="id"-->
-<!--        app:argType="long"/>-->
+    <argument
+        android:name="id"
+        app:argType="long"/>
 
-<!--    <argument-->
-<!--        android:name="login"-->
-<!--        app:argType="string"/>-->
   </fragment>
 </navigation>

@@ -1,17 +1,131 @@
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
- <TextView
-     app:layout_constraintStart_toStartOf="parent"
-     app:layout_constraintEnd_toEndOf="parent"
-     app:layout_constraintTop_toTopOf="parent"
-     app:layout_constraintBottom_toBottomOf="parent"
-     android:text="Details Bitch!"
-     android:layout_width="wrap_content"
-     android:layout_height="wrap_content"/>
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      >
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:id="@+id/track_image_detail"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:src="@drawable/ic_baseline_music_note_24"
+        app:layout_constraintBottom_toTopOf="@+id/track_price_label_detail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintVertical_chainStyle="packed"
+        />
+
+    <TextView
+        android:id="@+id/track_price_label_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:ellipsize="end"
+        android:gravity="left"
+        android:maxLines="1"
+        android:text="@string/price_detail"
+        android:textAppearance="?textAppearanceHeadline6"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/track_image_detail"
+        />
+
+    <TextView
+        android:id="@+id/track_price_detail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textAppearance="?textAppearanceHeadline6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/track_price_label_detail"
+        app:layout_constraintTop_toTopOf="@+id/track_price_label_detail"
+        tools:text="100 USD"
+        />
+
+    <TextView
+        android:id="@+id/track_genre_label_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:ellipsize="end"
+        android:gravity="left"
+        android:maxLines="1"
+        android:text="@string/genre_detail"
+        android:textAppearance="?textAppearanceHeadline6"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/track_price_label_detail"
+        />
+
+    <TextView
+        android:id="@+id/track_genre_detail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textAppearance="?textAppearanceHeadline6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/track_genre_label_detail"
+        app:layout_constraintTop_toTopOf="@+id/track_genre_label_detail"
+        tools:text="Movie"
+        />
+
+    <TextView
+        android:id="@+id/track_description_label_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:ellipsize="end"
+        android:gravity="left"
+        android:maxLines="1"
+        android:text="@string/description_detail"
+        android:textAppearance="?textAppearanceHeadline6"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/track_genre_detail"
+        />
+
+    <TextView
+        android:id="@+id/track_description_detail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:textAppearance="?textAppearanceHeadline6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/no_description_detail"
+        app:layout_constraintTop_toBottomOf="@+id/track_description_label_detail"
+        tools:text="Want your movie to have a professional movie poster? Every “one sheet” movie poster has ONE thing in common. It’s called “the billing block,” which is the industry-standard way of formatting movie poster credits. However, those variable fonts and specific movie poster credits “looks” are tough to format. Don’t worry. To make a movie poster you just need the right formatting and you can do this with a movie poster credits template. We’ll help you out with a free movie poster credits template, and a quick rundown of how to make a great poster."
+        />
+
+    <Space
+        app:layout_constraintTop_toBottomOf="@id/track_description_detail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"/>
+  </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

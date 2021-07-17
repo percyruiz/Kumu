@@ -10,10 +10,6 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ITunesItemDAO {
-
-  @Insert(onConflict = OnConflictStrategy.REPLACE)
-  fun insert(item: ITunesItem)
-
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   fun insertAll(vararg items: ITunesItem)
 

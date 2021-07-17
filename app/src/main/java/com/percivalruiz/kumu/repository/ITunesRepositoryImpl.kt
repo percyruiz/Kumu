@@ -4,13 +4,16 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.percivalruiz.kumu.api.ITunesService
+import com.percivalruiz.kumu.data.ITunesItem
 import com.percivalruiz.kumu.db.AppDatabase
 import com.percivalruiz.kumu.util.NETWORK_ITEM_SIZE
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
 class ITunesRepositoryImpl(
   private val service: ITunesService,
   private val db: AppDatabase
-): ITunesRepository {
+) : ITunesRepository {
 
   /**
    * RemoteMediator class used for Paging
@@ -25,4 +28,6 @@ class ITunesRepositoryImpl(
   ) {
     db.iTunesItemDAO().getAll()
   }.flow
+
+  override suspend fun getItem(id: Long): Flow<ITunesItem?> = db.iTunesItemDAO().getById(id)
 }

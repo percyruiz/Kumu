@@ -1,4 +1,4 @@
-package com.percivalruiz.kumu.ui
+package com.percivalruiz.kumu.ui.list
 
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -8,7 +8,7 @@ import com.percivalruiz.kumu.data.ITunesItem
 
 class ITunesListAdapter(
   private val glide: RequestManager,
-  private val onClick: () -> Unit
+  private val onClick: (id: Long) -> Unit
 ) : PagingDataAdapter<ITunesItem, ITunesViewHolder>(ITEM_COMP) {
 
   override fun onBindViewHolder(holder: ITunesViewHolder, position: Int) {

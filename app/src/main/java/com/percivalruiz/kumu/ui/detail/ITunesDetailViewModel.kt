@@ -1,4 +1,4 @@
-package com.percivalruiz.kumu.ui
+package com.percivalruiz.kumu.ui.detail
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -10,32 +10,27 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.flatMapLatest
 
-class SearchViewModel(
+class ITunesDetailViewModel(
   private val handle: SavedStateHandle,
   private val repository: ITunesRepository
 ): ViewModel() {
 
   init {
-    if (!handle.contains(KEY_TERM)) {
-      handle.set(KEY_TERM, "")
+    if (!handle.contains(KEY_ITUNES_ID)) {
+      handle.set(KEY_ITUNES_ID, 0)
     }
   }
 
   @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
-  val iTunesItems = handle.getLiveData<String>(KEY_TERM)
+  val iTunesItem = handle.getLiveData<Long>(KEY_ITUNES_ID)
     .asFlow()
-    .flatMapLatest { repository.search(it) }
-    .cachedIn(viewModelScope)
+    .flatMapLatest { repository.getItem(it) }
 
-//  suspend fun search(term: String): Flow<List<ITunesItem>> {
-//    return repository.search(term)
-//  }
-
-  fun search(term: String) {
-    handle.set(KEY_TERM, term)
+  fun getItem(id: Long) {
+    handle.set(KEY_ITUNES_ID, id)
   }
 
   companion object {
-    const val KEY_TERM = "com.percivalruiz.kumu.keyTerm"
+    const val KEY_ITUNES_ID = "com.percivalruiz.kumu.iTunesId"
   }
 }

@@ -1,4 +1,4 @@
-package com.percivalruiz.kumu.ui
+package com.percivalruiz.kumu.ui.list
 
 import android.app.Activity
 import android.os.Bundle
@@ -17,7 +17,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.RequestManager
 import com.percivalruiz.kumu.R
 import com.percivalruiz.kumu.databinding.FragmentItunesListBinding
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChangedBy
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.stateViewModel
@@ -45,15 +48,15 @@ class ITunesListFragment : Fragment() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
-    binding.retryButton.setOnClickListener {
-      findNavController().navigate(ITunesListFragmentDirections.actionListToDetail())
-    }
-
     initAdapter()
 
     binding.searchTerm.setOnEditorActionListener { v, actionId, event ->
       if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-        viewModel.search(binding.searchTerm.text.toString())
+        if(binding.searchTerm.text.isNotBlank()) {
+          viewModel.search(binding.searchTerm.text.toString())
+        } else {
+          Toast.makeText(requireContext(), "Search term is blank", Toast.LENGTH_LONG).show()
+        }
         hideKeyboard()
         true
       }
@@ -75,7 +78,9 @@ class ITunesListFragment : Fragment() {
   }
 
   private fun initAdapter() {
-    adapter = ITunesListAdapter(glide) { }
+    adapter = ITunesListAdapter(glide) { id ->
+      findNavController().navigate(ITunesListFragmentDirections.actionListToDetail(id))
+    }
 
     binding.retryButton.setOnClickListener { adapter.retry() }
 
@@ -123,6 +128,13 @@ class ITunesListFragment : Fragment() {
           ).show()
         }
       }
+
+      adapter.loadStateFlow
+        // Only emit when REFRESH LoadState for RemoteMediator changes.
+        .distinctUntilChangedBy { it.refresh }
+        // Only react to cases where Remote REFRESH completes i.e., NotLoading.
+        .filter { it.refresh is LoadState.NotLoading }
+        .collect { binding.list.scrollToPosition(0) }
     }
   }
 
