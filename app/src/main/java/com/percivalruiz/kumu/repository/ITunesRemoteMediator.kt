@@ -62,7 +62,6 @@ class ITunesRemoteMediator(
           )
         )
 
-
         // Cache to db
         iTunesItemDAO.insertAll(*(response.results).toTypedArray())
       }

@@ -4,4 +4,9 @@
   <string name="empty">No items found :(</string>
   <string name="hint">Search</string>
   <string name="last_visited">Last Visited: %s</string>
+  <string name="name_detail">Name: </string>
+  <string name="price_detail">Price: </string>
+  <string name="genre_detail">Genre: </string>
+  <string name="description_detail">Description: </string>
+  <string name="no_description_detail">No description available.</string>
 </resources>

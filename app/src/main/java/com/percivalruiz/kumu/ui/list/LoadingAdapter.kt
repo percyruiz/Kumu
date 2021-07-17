@@ -1,4 +1,4 @@
-package com.percivalruiz.kumu.ui
+package com.percivalruiz.kumu.ui.list
 
 import android.view.ViewGroup
 import androidx.paging.LoadState
