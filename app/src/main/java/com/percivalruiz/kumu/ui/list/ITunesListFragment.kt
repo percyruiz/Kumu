@@ -17,10 +17,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.RequestManager
 import com.percivalruiz.kumu.R
 import com.percivalruiz.kumu.databinding.FragmentItunesListBinding
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.distinctUntilChangedBy
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.stateViewModel
@@ -63,6 +60,7 @@ class ITunesListFragment : Fragment() {
       false
     }
 
+    // Observes user status livedata from viewmodel and updates UI elements
     viewModel.status.observe(viewLifecycleOwner) {
       viewModel.initStatus(status = it)
       binding.searchTerm.setText(it?.lastSearch.orEmpty())
@@ -73,6 +71,11 @@ class ITunesListFragment : Fragment() {
     }
   }
 
+  /**
+   * Extension method to convert current time in millis to [PrettyTime]
+   *
+   * @return String in [PrettyTime] format e.g. "moments ago", "30 minutes ago"
+   */
   private fun Long.getPrettyTime(): String {
     return PrettyTime().format(Date(this))
   }
@@ -84,6 +87,7 @@ class ITunesListFragment : Fragment() {
 
     binding.retryButton.setOnClickListener { adapter.retry() }
 
+    // Set up adapter footer, header, and layout
     val footerAdapter = LoadingAdapter(adapter)
     binding.list.adapter = adapter.withLoadStateHeaderAndFooter(
       header = LoadingAdapter(adapter),
@@ -102,6 +106,7 @@ class ITunesListFragment : Fragment() {
       }
     }
 
+    // Handles updating the list
     viewLifecycleOwner.lifecycleScope.launchWhenCreated {
       viewModel.iTunesItems.collectLatest {
         adapter.submitData(it)
@@ -114,6 +119,8 @@ class ITunesListFragment : Fragment() {
       showEmptyList(isListEmpty)
     }
 
+
+    // Updates progressbar, refresh, error toast by observing [Flow<CombinedLoadStates>]
     viewLifecycleOwner.lifecycleScope.launch {
       adapter.loadStateFlow.collectLatest { loadStates ->
         binding.progressBar.isVisible = loadStates.refresh is LoadState.Loading
@@ -128,13 +135,6 @@ class ITunesListFragment : Fragment() {
           ).show()
         }
       }
-
-      adapter.loadStateFlow
-        // Only emit when REFRESH LoadState for RemoteMediator changes.
-        .distinctUntilChangedBy { it.refresh }
-        // Only react to cases where Remote REFRESH completes i.e., NotLoading.
-        .filter { it.refresh is LoadState.NotLoading }
-        .collect { binding.list.scrollToPosition(0) }
     }
   }
 

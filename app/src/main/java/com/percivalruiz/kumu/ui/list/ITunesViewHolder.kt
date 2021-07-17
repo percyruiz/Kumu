@@ -13,6 +13,9 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.percivalruiz.kumu.R
 import com.percivalruiz.kumu.data.ITunesItem
 
+/**
+ * Populates the ITunes list item
+ */
 class ITunesViewHolder(
   view: View,
   onClick: (id: Long) -> Unit,

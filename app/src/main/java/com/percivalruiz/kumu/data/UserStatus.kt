@@ -3,9 +3,11 @@ package com.percivalruiz.kumu.data
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
+/**
+ * Represents user's last search and last visit data
+ */
 @JsonClass(generateAdapter = true)
 @Entity(tableName = "user_status")
 data class UserStatus (

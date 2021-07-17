@@ -4,6 +4,9 @@ import android.view.ViewGroup
 import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
 
+/**
+ * Adapter for showing loading and error status in footer
+ */
 class LoadingAdapter(
     private val adapter: ITunesListAdapter
 ) : LoadStateAdapter<NetworkStateItemViewHolder>() {
