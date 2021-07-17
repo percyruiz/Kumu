@@ -12,6 +12,16 @@ import com.percivalruiz.kumu.db.AppDatabase
 import retrofit2.HttpException
 import java.io.IOException
 
+/**
+ * RemoteMediator class used for Paging
+ * Extends Android's [RemoteMediator] class
+ * This handles loading of data from service and saving it on db
+ * LoadType are passed to the load method which corresponds to the status of the adapter
+ *
+ * @property db App's database instance
+ * @property service Interface to ITunes API
+ * @property term search key for ITunes search
+ */
 @OptIn(ExperimentalPagingApi::class)
 class ITunesRemoteMediator(
   private val db: AppDatabase,
@@ -41,6 +51,7 @@ class ITunesRemoteMediator(
         }
       }
 
+      // Search endpoint service call
       val response = service.search(
         term = term,
         offset = offset ?: 0

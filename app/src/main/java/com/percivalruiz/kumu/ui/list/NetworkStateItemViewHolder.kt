@@ -8,6 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.percivalruiz.kumu.R
 import com.percivalruiz.kumu.databinding.NetworkStateItemBinding
 
+/**
+ * ViewHolder implementation for showing load more and retry on footer
+ */
 class NetworkStateItemViewHolder(
   parent: ViewGroup,
   private val retryCallback: () -> Unit

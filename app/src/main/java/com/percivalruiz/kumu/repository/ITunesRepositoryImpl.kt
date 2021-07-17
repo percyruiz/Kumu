@@ -8,17 +8,24 @@ import com.percivalruiz.kumu.data.ITunesItem
 import com.percivalruiz.kumu.db.AppDatabase
 import com.percivalruiz.kumu.util.NETWORK_ITEM_SIZE
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 
+/**
+ * Data source class for [ITunesItem]
+ *
+ * @property service Interface to ITunes API
+ * @property db App's database instance
+ */
 class ITunesRepositoryImpl(
   private val service: ITunesService,
   private val db: AppDatabase
 ) : ITunesRepository {
 
   /**
-   * RemoteMediator class used for Paging
+   * Method for setting up a [Pager] object which will setup our service and db
+   * The [Pager] handles querying of fresh data from the endpoint and using the db to
+   * store a single source of truth to be used by our [RecyclerView]
    *
-   * Returns [Flow<PagingData>] object the [PagingSource] produced by querying to db
+   * Returns [Flow<PagingData>] object the [Pager] produced by querying to db
    * [ITunesService] requests data then inserts them to db using [ITunesRemoteMediator]
    */
   @OptIn(ExperimentalPagingApi::class)
