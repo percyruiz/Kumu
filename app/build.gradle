@@ -3,6 +3,7 @@ plugins {
   id 'kotlin-android'
   id 'kotlin-android-extensions'
   id 'kotlin-kapt'
+  id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -32,6 +33,20 @@ android {
   kotlinOptions {
     jvmTarget = '1.8'
   }
+
+  buildFeatures {
+    viewBinding true
+  }
+
+  packagingOptions {
+    exclude 'META-INF/ASL2.0'
+  }
+
+  configurations.all {
+    resolutionStrategy {
+      exclude group: "org.jetbrains.kotlinx", module: "kotlinx-coroutines-debug"
+    }
+  }
 }
 
 dependencies {
@@ -46,9 +61,7 @@ dependencies {
   androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
   // Koin AndroidX
-  implementation "org.koin:koin-androidx-scope:2.2.1"
-  implementation "org.koin:koin-androidx-viewmodel:2.2.1"
-  implementation "org.koin:koin-androidx-fragment:2.2.1"
+  implementation "io.insert-koin:koin-android:3.1.2"
 
   // Retrofit
   implementation 'com.squareup.retrofit2:retrofit:2.9.0'
@@ -85,4 +98,22 @@ dependencies {
   // Glide
   implementation 'com.github.bumptech.glide:glide:4.11.0'
   annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+
+  // Navigation
+  implementation 'androidx.navigation:navigation-fragment-ktx:2.3.2'
+  implementation 'androidx.navigation:navigation-ui-ktx:2.3.2'
+
+  // Card View
+  implementation 'androidx.cardview:cardview:1.0.0'
+
+  // Pretty Time
+  implementation 'org.ocpsoft.prettytime:prettytime:4.0.4.Final'
+
+  // Testing
+  androidTestImplementation 'androidx.arch.core:core-testing:2.1.0'
+  testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2'
+  androidTestImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2'
+  testImplementation "io.mockk:mockk:1.12.0"
+  testImplementation 'com.jraska.livedata:testing-ktx:1.1.2'
+  testImplementation 'androidx.test.ext:junit:1.1.2'
 }

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/iTunesListFragment">
+
+  <fragment
+      android:id="@+id/iTunesListFragment"
+      android:name="com.percivalruiz.kumu.ui.list.ITunesListFragment"
+      tools:layout="@layout/fragment_itunes_list">
+
+    <action
+        android:id="@+id/action_list_to_detail"
+        app:destination="@id/iTunesDetailFragment"
+        app:popUpTo="@id/iTunesListFragment"/>
+  </fragment>
+
+  <fragment
+      android:id="@+id/iTunesDetailFragment"
+      android:name="com.percivalruiz.kumu.ui.detail.ITunesDetailFragment"
+      android:label="Label"
+      tools:layout="@layout/fragment_itunes_detail">
+
+    <argument
+        android:name="id"
+        app:argType="long"/>
+
+  </fragment>
+</navigation>
