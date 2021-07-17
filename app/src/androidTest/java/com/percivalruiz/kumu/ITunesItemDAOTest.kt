@@ -5,7 +5,6 @@ import androidx.room.Room
 import androidx.test.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.percivalruiz.kumu.data.ITunesItem
-import com.percivalruiz.kumu.data.RemoteKey
 import com.percivalruiz.kumu.db.AppDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

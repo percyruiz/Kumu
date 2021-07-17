@@ -1,14 +1,13 @@
 package com.percivalruiz.kumu.repository
 
-import androidx.paging.ExperimentalPagingApi
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import com.percivalruiz.kumu.api.ITunesService
 import com.percivalruiz.kumu.data.UserStatus
 import com.percivalruiz.kumu.db.AppDatabase
-import com.percivalruiz.kumu.util.NETWORK_ITEM_SIZE
-import kotlinx.coroutines.flow.Flow
 
+/**
+ * Data source class for [UserStatus] providing db querying methods
+ *
+ * @property db App's database instance
+ */
 class UserStatusRepositoryImpl(
   private val db: AppDatabase
 ): UserStatusRepository {

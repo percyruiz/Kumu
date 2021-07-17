@@ -8,6 +8,14 @@ import com.percivalruiz.kumu.repository.UserStatusRepository
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.flatMapLatest
 
+/**
+ * Contains logic for getting iTunes list items and saving user status
+ *
+ * @property handle implements caching of values binded on the viewmodel's lifecycle
+ * @property iTunesRepository data source for [ITunesItem] related data
+ * @property userStatusRepository data source for [UserStatus]related data
+ * @property dispatcher enables injection of coroutine dispatcher to the viewmodel
+ */
 class ITunesListViewModel(
   private val handle: SavedStateHandle,
   private val iTunesRepository: ITunesRepository,
@@ -35,18 +43,30 @@ class ITunesListViewModel(
     }
   }
 
+  /**
+   * This will set the last search value from db
+   */
   fun initStatus(status: UserStatus?) {
     if (!handle.contains(KEY_TERM)) {
       handle.set(KEY_TERM, status?.lastSearch.orEmpty())
     }
   }
 
+  /**
+   * Observe changes from the handle as a [LiveData] object
+   * This call iTunes service's search method on [LiveData] updates
+   */
   @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
   val iTunesItems = handle.getLiveData<String>(KEY_TERM)
     .asFlow()
     .flatMapLatest { iTunesRepository.search(it) }
     .cachedIn(viewModelScope)
 
+  /**
+   * Handles searching by updating the handle then saving user status
+   *
+   * @param term is the user's search input
+   */
   fun search(term: String) {
     handle.set(KEY_TERM, term)
     viewModelScope.launch(dispatcher) {

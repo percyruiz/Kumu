@@ -6,6 +6,10 @@ import androidx.recyclerview.widget.DiffUtil
 import com.bumptech.glide.RequestManager
 import com.percivalruiz.kumu.data.ITunesItem
 
+/**
+ * Adapter for showing iTunes items
+ * Extends [PagingDataAdapter] that handles paging using [Paging3] library
+ */
 class ITunesListAdapter(
   private val glide: RequestManager,
   private val onClick: (id: Long) -> Unit

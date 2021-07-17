@@ -11,11 +11,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.percivalruiz.kumu.R
 import com.percivalruiz.kumu.databinding.FragmentItunesDetailBinding
-import com.percivalruiz.kumu.ui.list.ITunesListViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.android.ext.android.inject
@@ -44,8 +41,10 @@ class ITunesDetailFragment : Fragment() {
     super.onViewCreated(view, savedInstanceState)
 
     viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+      // Get item id from navArgs
       viewModel.getItem(args.id)
 
+      // Set-up UI contents
       viewModel.iTunesItem.collectLatest {
         it?.run {
           requireActivity().toolbar.title = trackName
