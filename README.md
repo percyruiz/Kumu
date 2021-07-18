@@ -30,7 +30,7 @@ For MVVM disadvantages, it can be sometimes an overkill for apps with simpler UI
 - Dependency injection (with [Koin](https://www.koin.com/))
 - Reactive programming (with [Kotlin Flows](https://kotlinlang.org/docs/reference/coroutines/flow.html))
 - Http client (with [Retrofit](https://square.github.io/retrofit/))
-- Paging implementation which handles loading of items and caching to db (with[Paging3](https://developer.android.com/topic/libraries/architecture/paging/v3-overview))
+- Paging implementation which handles loading of items and caching to db (with [Paging3](https://developer.android.com/topic/libraries/architecture/paging/v3-overview))
 - Google [Material Design](https://material.io/blog/android-material-theme-color) library
 - Android architecture components
 - Image loading (with [Glide](https://github.com/bumptech/glide))
